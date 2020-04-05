@@ -1,0 +1,14 @@
+{
+  "name": "f2c-msint",
+  "version": "0.0.4",
+  "description": "Buy and sell crypto without fucking!",
+  "author": "Sgoldik",
+  "scripts": {
+    "start": "node src/index"
+  },
+  "dependencies": {
+    "@types/bitcoinjs-lib": "^5.0.0",
+    "bitcoinjs-lib": "^5.1.7"
+  },
+  "devDependencies": {}
+}
