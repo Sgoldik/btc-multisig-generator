@@ -40,12 +40,12 @@ class Msint {
         return Buffer.from(hex, 'hex');
     }
 
-    pKeyFromKeyPair (keyPair) {
+    pubKeyFromKeyPair (keyPair) {
         return keyPair.publicKey
     }
 
     pubKeysFromKeyPairs (keyPairs) {
-        return keyPairs.map(keyPair => this.pKeyFromKeyPair(keyPair))
+        return keyPairs.map(keyPair => this.pubKeyFromKeyPair(keyPair))
     }
 
     getPrevTxId () {
