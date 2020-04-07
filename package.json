@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@types/bitcoinjs-lib": "^5.0.0",
+    "axios": "^0.19.2",
     "bitcoinjs-lib": "^5.1.7"
   },
   "devDependencies": {}
