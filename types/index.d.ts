@@ -1,0 +1,1 @@
+declare module 'f2c-msint';
