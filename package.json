@@ -2,6 +2,7 @@
   "name": "f2c-msint",
   "version": "0.0.7",
   "description": "Buy and sell crypto without fucking!",
+  "main": "./src/index.js",
   "author": "Sgoldik",
   "scripts": {
     "start": "node test/index"
