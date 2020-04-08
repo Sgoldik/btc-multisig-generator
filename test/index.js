@@ -2,6 +2,7 @@ const bitcoin = require('bitcoinjs-lib');
 const { Msint } = require('../src/Msint');
 const { NodeInt } = require('../src/NodeInt');
 const { Wallet } = require('../src/Wallet');
+const { Transaction } = require('../src/Transaction')
 const NETWORK = bitcoin.networks.testnet
 const FEE = 201;
 const NETSYDEFEE = 10000;
@@ -19,26 +20,36 @@ let sendingTx = async () => {
     console.log(address)
     const key1 = 'cMorAV1Ww74rbQAq1v5LRahB7BQ7LQNAThiJjtum1BepXzxnQ38x'
     const key2 = 'cVzM1Ukhx3pwvyAikBEnUvN8vNeviRdswuZFP6cwiLxpg7j1t8wY'
-
-    let input = new NodeInt('tb1q6facue04fhsag9mj9tjqj0msvt0s83x33k48aaap0z0nzafg7naskkt78d', API)
+    
+    const tx = new Transaction(NETWORK).create()
+    let input = new NodeInt(address, API)
     let hash = await input.getHash()
-    let script = await input.getScriptPubKey()
-    let balance = await input.getBalance()
     console.log(hash)
+
+    let script = await input.getScriptPubKey()
     console.log(script)
+
+    let balance = await input.getBalance()
     console.log(balance)
 
-    const tx = wallet.send(
-        key1,
-        key2,
-        hash, // prev tx hash
-        script, // script
-        'tb1qxs488h7tmk5w6axeht5zvgwts8w48s2fhge4yskmv8pskdplsdesquf922', // recipient
-        balance, // full amount
-        balance - NETSYDEFEE - FEE, // transfer amount
-        NETSYDEFEE // netsyde fee
-    )
-    console.log(tx)
+    // Gets hash, script and fullAmount and after ->
+    tx.addInput(hash, script, balance)
+
+    // Gets buyer address, amount and after ->
+    const recipient = 'tb1qxs488h7tmk5w6axeht5zvgwts8w48s2fhge4yskmv8pskdplsdesquf922';
+    // const transferAmount = 10000
+    tx.addOutput(recipient, balance, FEE)
+
+    // waiting for confirmation and after sign tx (1/3)
+
+    tx.sign(key1)
+
+    // waiting for confirmation and after sign tx (2/3)
+
+    tx.sign(key2)
+
+    // finalize and broadcast
+    tx.broadcast()
 
 }
 sendingTx()
