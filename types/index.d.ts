@@ -1,6 +1,4 @@
-import * as Msint from './Msint';
-import * as NodeInt from './NodeInt';
-import * as Transaction from './Transaction';
-import * as Wallet from './Wallet';
-
-export { Msint, NodeInt, Transaction, Wallet };
+export { Msint } from './Msint';
+export { NodeInt } from './NodeInt';
+export { Transaction } from './Transaction';
+export { Wallet } from './Wallet';
