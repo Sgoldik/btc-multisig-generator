@@ -1,1 +1,1 @@
-export { btc } from './btc';
+export * as BTC from './btc';

@@ -8,7 +8,7 @@ export declare class Wallet {
 
 interface WalletInfo {
     address: string;
-    redeem: Array;
-    WIFs: Array;
-    pubKeys: Array;
+    redeem: Array<string>;
+    WIFs: Array<string>;
+    pubKeys: Array<string>;
 }
