@@ -1,8 +1,5 @@
 const bitcoin = require('bitcoinjs-lib');
-const { Msint } = require('../src/Msint');
-const { NodeInt } = require('../src/NodeInt');
-const { Wallet } = require('../src/Wallet');
-const { Transaction } = require('../src/Transaction')
+const { Msint, NodeInt, Wallet, Transaction } = require('../src/btc');
 const NETWORK = bitcoin.networks.testnet
 const FEE = 201;
 const NETSYDEFEE = 10000;
