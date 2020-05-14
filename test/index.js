@@ -49,4 +49,4 @@ let sendingTx = async () => {
     tx.broadcast()
 
 }
-sendingTx()
+// sendingTx()
