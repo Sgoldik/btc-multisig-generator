@@ -1,6 +1,6 @@
-# F2C MSINT
-![](https://img.shields.io/badge/stable-v0.0.7-brightgreen) ![](https://img.shields.io/github/commit-activity/m/Sgoldik/f2c-msint) ![](https://img.shields.io/github/license/Sgoldik/f2c-msint)
+# Crypto interaction
+[![Build Status](https://travis-ci.com/netsyde/crypto-interaction.svg?token=upLq4Mcq8TPEeQG36nvV&branch=master)](https://travis-ci.com/netsyde/crypto-interaction)
 
 
-## About F2C MSINT
-F2C MSINT is a module of the Fiat 2 Crypto that allows you to interact with the bitcoin blockchain.
+## About crypto interaction
+Crypto interaction is a module of the crypto2bot that allows you to interact with the BTC, ETH and LTC blockchains.

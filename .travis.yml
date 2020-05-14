@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+ - "node"
+matrix:
+  include:
+    - node_js: "lts/*"
+      env: TEST_SUITE=lint:test
