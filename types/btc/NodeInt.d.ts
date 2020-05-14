@@ -1,5 +1,5 @@
 export declare class NodeInt {
-    constructor(address: string, API: URL);
+    constructor(address: string, API: string);
 
     getHash(): string
     getScriptPubKey(): string

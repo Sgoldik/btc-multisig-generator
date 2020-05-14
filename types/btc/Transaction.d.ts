@@ -1,5 +1,5 @@
 export declare class Transaction {
-    constructor(network: URL, keyPairs: Array);
+    constructor(network: string, keyPairs: Array<string>);
 
     create(): this
     addInput(prevHash: string, script: string, fullAmount: number): this

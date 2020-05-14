@@ -1,5 +1,5 @@
 export declare class Wallet {
-    constructor(network: URL, keyPairs: Array);
+    constructor(network: string, keyPairs: Array<string>);
 
     create(): string
     getInfo(): WalletInfo
