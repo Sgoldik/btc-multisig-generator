@@ -1,7 +1,7 @@
-import { ECPairInterface } from "bitcoinjs-lib/types";
+import { ECPairInterface, Network } from "bitcoinjs-lib/types";
 
 export declare class Msint {
-    constructor(network: string);
+    constructor(network: Network);
 
     getRedeemScript(pubKeys: Array<string>): string
     keyPairFromWIF(WIF: string): Array<string>

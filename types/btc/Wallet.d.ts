@@ -1,5 +1,6 @@
+import { ECPairInterface, Network } from "bitcoinjs-lib/types";
 export declare class Wallet {
-    constructor(network: string, keyPairs: Array<string>);
+    constructor(network: Network, keyPairs: Array<ECPairInterface>);
 
     create(): string
     getInfo(): WalletInfo

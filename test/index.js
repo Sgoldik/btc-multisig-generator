@@ -11,6 +11,9 @@ var keyPairs = [
     'cTtSYats6xkYCPk3fsfyxTeyUxRxVYHFWwmreVHAKN7UxXyu6pw8'
 ].map(wif => bitcoin.ECPair.fromWIF(wif, NETWORK))
 
+let msint = new Msint(NETWORK);
+const test = msint.generateKeyPairs();
+console.log(test);
 let sendingTx = async () => {
     const wallet = new Wallet(NETWORK, keyPairs)
     const address = wallet.create()

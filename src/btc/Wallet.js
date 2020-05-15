@@ -24,8 +24,8 @@ class Wallet extends Msint {
         return {
             address: this.create(),
             redeem: this.getRedeemScript(this.pubKeys).output.toString('hex'),
-            WIFs: keyPairs.map(keyPair => keyPair.toWIF()),
-            pubKeys: keyPairs.map(keyPair => keyPair.publicKey.toString('hex')),
+            WIFs: this.keyPairs.map(keyPair => keyPair.toWIF()),
+            pubKeys: this.keyPairs.map(keyPair => keyPair.publicKey.toString('hex')),
         }
     }
 
