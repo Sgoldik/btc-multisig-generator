@@ -1,18 +1,20 @@
 const bitcoin = require('bitcoinjs-lib');
 const { Msint } = require('./Msint');
 
-class Transaction extends Msint {
-    constructor (network) {
+export default class Transaction extends Msint {
+    network: string
+    NETSYDEFEE = 10000;
+    psbt: any
+    constructor (network: string) {
         super(network)
         this.psbt
-        this.NETSYDEFEE = 10000
     }
 
     create () {
         this.psbt = new bitcoin.Psbt({ network: this.NETWORK })
     }
 
-    addInput (prevHash, script, fullAmount) {
+    addInput (prevHash: any, script: any, fullAmount: any) {
         const inputData = {
             hash: prevHash, // prev tx id
             index: 0,
@@ -28,10 +30,10 @@ class Transaction extends Msint {
         this.psbt.addInput(inputData);
     }
 
-    addOutput (recipient, balance, fee) {
+    addOutput (recipient: any, balance: any, fee: any) {
         this.psbt.addOutput({
             address: recipient,
-            value: balance - fee - NETSYDEFEE,
+            value: balance - fee - this.NETSYDEFEE,
         })
         this.psbt.addOutput({
             address: this.NETSYDE,
@@ -39,7 +41,7 @@ class Transaction extends Msint {
         })
     }
 
-    sign (key) {
+    sign (key: any) {
         this.psbt.signInput(0, this.keyPairFromWIF(key))
     }
 
@@ -60,4 +62,4 @@ class Transaction extends Msint {
     
 }
 
-module.exports.Transaction = Transaction;
+// module.exports.Transaction = Transaction;

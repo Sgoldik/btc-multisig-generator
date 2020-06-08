@@ -4,5 +4,6 @@ export declare class NodeInt {
     getHash(): string
     getScriptPubKey(): string
     getBalance(): number
+    getTxInfo(tx: string): object
 
 }

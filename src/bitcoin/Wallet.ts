@@ -1,13 +1,16 @@
 const bitcoin = require('bitcoinjs-lib');
-const { Msint } = require('./Msint');
+import { Msint } from './Msint'
 
-class Wallet extends Msint {
-    constructor (network, keyPairs) {
+export default class Wallet extends Msint {
+    network: string;
+    keyPairs: any;
+    pubKeys: any;
+    constructor (network: string, keyPairs: any) {
         super(network)
         this.keyPairs = keyPairs
         this.pubKeys = this.pubKeysFromKeyPairs(this.keyPairs)
     }
-    
+     
     create () {
         const redeem = this.getRedeemScript(this.pubKeys);
         const p2wsh = bitcoin.payments.p2wsh(
@@ -24,11 +27,11 @@ class Wallet extends Msint {
         return {
             address: this.create(),
             redeem: this.getRedeemScript(this.pubKeys).output.toString('hex'),
-            WIFs: this.keyPairs.map(keyPair => keyPair.toWIF()),
-            pubKeys: this.keyPairs.map(keyPair => keyPair.publicKey.toString('hex')),
+            WIFs: this.keyPairs.map((keyPair: any) => keyPair.toWIF()),
+            pubKeys: this.keyPairs.map((keyPair: any) => keyPair.publicKey.toString('hex')),
         }
     }
 
 }
 
-module.exports.Wallet = Wallet;
+//module.exports.Wallet = Wallet;

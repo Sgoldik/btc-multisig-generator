@@ -1,11 +1,13 @@
 {
   "name": "crypto-interaction",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "Buy and sell crypto without fucking!",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "author": "Sgoldik",
   "scripts": {
-    "test": "node test/index"
+    "test": "yarn build && node test/index",
+    "build-ts": "tsc",
+    "build": "yarn run build-ts"
   },
   "types": "./types/index.d.ts",
   "type": "commonjs",

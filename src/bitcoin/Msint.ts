@@ -1,12 +1,13 @@
 const bitcoin = require('bitcoinjs-lib');
 
-class Msint {
-    constructor (network) {
+export class Msint {
+    NETWORK: string;
+    NETSYDE: string = "tb1qxs488h7tmk5w6axeht5zvgwts8w48s2fhge4yskmv8pskdplsdesquf922";
+    constructor (network: string) {
         this.NETWORK = network
-        this.NETSYDE = "tb1qxs488h7tmk5w6axeht5zvgwts8w48s2fhge4yskmv8pskdplsdesquf922"
     }
 
-    getRedeemScript (pubKeys) {
+    getRedeemScript (pubKeys: any) {
         const redeem = bitcoin.payments.p2ms(
             {
                 m: 2,
@@ -17,12 +18,12 @@ class Msint {
         return redeem;
     }
 
-    keyPairFromWIF (WIF) {
+    keyPairFromWIF (WIF: any) {
         return bitcoin.ECPair.fromWIF(WIF, this.NETWORK)
     }
 
-    keyPairsFromWIFs (WIFs) {
-        return WIFs.map(wif => this.keyPairFromWIF(wif))
+    keyPairsFromWIFs (WIFs: any) {
+        return WIFs.map((wif: any) => this.keyPairFromWIF(wif))
     }
 
     generateKeyPair () {
@@ -34,18 +35,18 @@ class Msint {
         return keyPairs
     }
 
-    bufferFromHex (hex) {
+    bufferFromHex (hex: any) {
         return Buffer.from(hex, 'hex');
     }
 
-    pubKeyFromKeyPair (keyPair) {
+    pubKeyFromKeyPair (keyPair: any) {
         return keyPair.publicKey
     }
 
-    pubKeysFromKeyPairs (keyPairs) {
-        return keyPairs.map(keyPair => this.pubKeyFromKeyPair(keyPair))
+    pubKeysFromKeyPairs (keyPairs: any) {
+        return keyPairs.map((keyPair: any) => this.pubKeyFromKeyPair(keyPair))
     }
 
 }
 
-module.exports.Msint = Msint;
+//module.exports.Msint = Msint;

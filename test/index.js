@@ -1,35 +1,30 @@
-const bitcoin = require('bitcoinjs-lib');
-const { Msint, NodeInt, Wallet, Transaction } = require('../src/btc');
-const NETWORK = bitcoin.networks.testnet
+const bitcoinjs = require('bitcoinjs-lib');
+const { bitcoin, etherium } = require('../dist');
+let NETWORK = bitcoinjs.networks.testnet
 const FEE = 201;
 const NETSYDEFEE = 10000;
 const API = 'https://api.blockcypher.com/v1/btc/test3'
 
-var keyPairs = [
-    'cMorAV1Ww74rbQAq1v5LRahB7BQ7LQNAThiJjtum1BepXzxnQ38x',
-    'cVzM1Ukhx3pwvyAikBEnUvN8vNeviRdswuZFP6cwiLxpg7j1t8wY',
-    'cTtSYats6xkYCPk3fsfyxTeyUxRxVYHFWwmreVHAKN7UxXyu6pw8'
-].map(wif => bitcoin.ECPair.fromWIF(wif, NETWORK))
-
-let msint = new Msint(NETWORK);
+let msint = new bitcoin.Msint(NETWORK);
 const test = msint.generateKeyPairs();
-console.log(test);
+console.log(test)
+
 let sendingTx = async () => {
-    const wallet = new Wallet(NETWORK, keyPairs)
+    const wallet = new bitcoin.Wallet(NETWORK, keyPairs)
     const address = wallet.create()
     console.log(address)
     const key1 = 'cMorAV1Ww74rbQAq1v5LRahB7BQ7LQNAThiJjtum1BepXzxnQ38x'
     const key2 = 'cVzM1Ukhx3pwvyAikBEnUvN8vNeviRdswuZFP6cwiLxpg7j1t8wY'
     
-    const tx = new Transaction(NETWORK).create()
-    let input = new NodeInt(address, API)
-    let hash = await input.getHash()
+    const tx = new bitcoin.Transaction(NETWORK).create()
+    let input = new bitcoin.NodeInt(API)
+    let hash = await input.getHash(address)
     console.log(hash)
 
-    let script = await input.getScriptPubKey()
+    let script = await input.getScriptPubKey(address)
     console.log(script)
 
-    let balance = await input.getBalance()
+    let balance = await input.getBalance(address)
     console.log(balance)
 
     // Gets hash, script and fullAmount and after ->
@@ -53,3 +48,12 @@ let sendingTx = async () => {
 
 }
 // sendingTx()
+
+const checkTx = async () => {
+    let node = new bitcoin.NodeInt(API)
+    let test = await node.getTxInfo("d21a2aa1b276f4b8b42d4049f3aeed88dde888d9fc114362134f7c6fb4e57447")
+    console.log(test)
+
+}
+
+//checkTx()
