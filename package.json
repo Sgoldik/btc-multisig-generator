@@ -16,5 +16,7 @@
     "axios": "^0.19.2",
     "bitcoinjs-lib": "^5.1.7"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "typescript": "^3.1.6"
+  }
 }
