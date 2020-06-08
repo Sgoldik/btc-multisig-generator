@@ -1,11 +1,11 @@
-const { Msint } = require('./Msint');
+import { Msint } from './Msint'
 
-const { NodeInt } = require('./NodeInt');
+import NodeInt from './NodeInt'
 
-const { Wallet } = require('./Wallet');
+import Wallet from './Wallet'
 
-const { Transaction } = require('./Transaction');
+import Transaction from './Transaction'
 
-const { Network } = require('./Network');
+import * as networks from './networks'
 
-export default {Msint, NodeInt, Wallet, Transaction, Network}
+export default {Msint, NodeInt, Wallet, Transaction, networks}

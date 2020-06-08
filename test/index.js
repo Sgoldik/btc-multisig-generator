@@ -1,6 +1,5 @@
-const bitcoinjs = require('bitcoinjs-lib');
 const { bitcoin, etherium } = require('../dist');
-let NETWORK = bitcoinjs.networks.testnet
+let NETWORK = bitcoin.networks.testnet
 const FEE = 201;
 const NETSYDEFEE = 10000;
 const API = 'https://api.blockcypher.com/v1/btc/test3'

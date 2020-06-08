@@ -1,2 +1,2 @@
-export { Msint, Transaction, NodeInt, Wallet, Network } from './bitcoin';
+export { Msint, Transaction, NodeInt, Wallet, networks } from './bitcoin';
 export { Network } from './etherium';
