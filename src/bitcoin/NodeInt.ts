@@ -27,6 +27,26 @@ export default class NodeInt {
         const response = await axios.get(`${this.API}/txs/${tx}?includeHex=true`);
         return response.data;
     }
+    
+    async getTxAddresses (tx: string): Promise<Array<string>> {
+        const response = await this.getTxInfo(tx);
+        return response.data.outputs.map ((output: any) =>
+            output.addresses
+        )
+        
+    }
+
+    async getTxOutputsWithBalance (tx: string) {
+        const info = await this.getTxInfo(tx)
+        return info.outputs.map ((output: any) => {
+               return {
+                   address: output.addresses ? output.addresses[0] : output.addresses,
+                   value: output.value
+               }
+            }
+        )
+    }
+
 }
 
 module.exports.NodeInt = NodeInt;

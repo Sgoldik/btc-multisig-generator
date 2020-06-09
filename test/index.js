@@ -6,7 +6,7 @@ const API = 'https://api.blockcypher.com/v1/btc/test3'
 
 let msint = new bitcoin.Msint(NETWORK);
 const test = msint.generateKeyPairs();
-console.log(test)
+//console.log(test)
 
 let sendingTx = async () => {
     const wallet = new bitcoin.Wallet(NETWORK, keyPairs)
@@ -50,9 +50,10 @@ let sendingTx = async () => {
 
 const checkTx = async () => {
     let node = new bitcoin.NodeInt(API)
-    let test = await node.getTxInfo("d21a2aa1b276f4b8b42d4049f3aeed88dde888d9fc114362134f7c6fb4e57447")
+    let test = await node.getTxAddressesWithBalance("d21a2aa1b276f4b8b42d4049f3aeed88dde888d9fc114362134f7c6fb4e57447")
+    
     console.log(test)
 
 }
 
-//checkTx()
+checkTx()
