@@ -1,10 +1,11 @@
 const bitcoin = require('bitcoinjs-lib');
-const { Msint } = require('./Msint');
+import {Msint} from './Msint';
 
 export default class Transaction extends Msint {
     network: string
     NETSYDEFEE = 10000;
     psbt: any
+    pubKeys: any // test this
     constructor (network: string) {
         super(network)
         this.psbt

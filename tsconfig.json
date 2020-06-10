@@ -6,13 +6,14 @@
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist",
+    "outDir": "src",
     "baseUrl": ".",
     "resolveJsonModule": true,
     "lib": ["es2017"],
     "paths": {
       "*": ["node_modules/*", "types/*"],
-    }
+    },
+    "declaration": true
   },
-  "include": ["src/**/*"]
+  "include": ["src_ts/**/*"]
 }
