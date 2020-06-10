@@ -1,6 +1,6 @@
 {
   "name": "crypto-interaction",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Buy and sell crypto without fucking!",
   "main": "./src/index.js",
   "author": "Sgoldik",

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Msint = void 0;
 const bitcoin = require('bitcoinjs-lib');
 class Msint {
     constructor(network) {

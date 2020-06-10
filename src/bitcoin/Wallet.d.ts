@@ -1,9 +1,10 @@
 import { Msint } from './Msint';
+import { Network } from './networks';
 export default class Wallet extends Msint {
-    network: string;
+    network: Network;
     keyPairs: any;
     pubKeys: any;
-    constructor(network: string, keyPairs: any);
+    constructor(network: Network, keyPairs: any);
     create(): any;
     getInfo(): {
         address: any;

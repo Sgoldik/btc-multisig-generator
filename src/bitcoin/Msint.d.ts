@@ -1,8 +1,9 @@
 /// <reference types="node" />
+import { Network } from './networks';
 export declare class Msint {
-    NETWORK: string;
+    NETWORK: Network;
     NETSYDE: string;
-    constructor(network: string);
+    constructor(network: Network);
     getRedeemScript(pubKeys: any): any;
     keyPairFromWIF(WIF: any): any;
     keyPairsFromWIFs(WIFs: any): any;

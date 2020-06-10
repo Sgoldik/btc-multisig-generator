@@ -1,9 +1,11 @@
+import { Network } from './networks'
+
 const bitcoin = require('bitcoinjs-lib');
 
 export class Msint {
-    NETWORK: string;
+    NETWORK: Network;
     NETSYDE: string = "tb1qxs488h7tmk5w6axeht5zvgwts8w48s2fhge4yskmv8pskdplsdesquf922";
-    constructor (network: string) {
+    constructor (network: Network) {
         this.NETWORK = network
     }
 
