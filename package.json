@@ -1,7 +1,15 @@
 {
   "name": "crypto-interaction",
-  "version": "0.2.3",
-  "description": "Buy and sell crypto without fucking!",
+  "version": "0.2.4",
+  "description": "Easy interaction with cryptocurrency blockchains",
+  "homepage": "https://github.com/netsyde/crypto-interaction",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:netsyde/crypto-interaction.git"
+  },
+  "bugs": {
+    "url": "https://github.com/netsyde/crypto-interaction/issues"
+  },
   "main": "./src/index.js",
   "author": "Sgoldik",
   "scripts": {
@@ -18,5 +26,11 @@
     "bitcoinjs-lib": "^5.1.7",
     "typescript": "^3.9.5"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "keywords": [
+    "crypto",
+    "cryptocurrency",
+    "bitcoin",
+    "BTC"
+  ]
 }
