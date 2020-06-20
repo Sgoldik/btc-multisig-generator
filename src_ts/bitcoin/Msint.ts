@@ -1,6 +1,7 @@
 import { Network } from './networks'
 
-const bitcoin = require('bitcoinjs-lib');
+import { ECPair, ECPairInterface, Payment } from 'bitcoinjs-lib';
+import * as bitcoinjs from 'bitcoinjs-lib'
 
 export class Msint {
     NETWORK: Network;
@@ -9,46 +10,50 @@ export class Msint {
         this.NETWORK = network
     }
 
-    getRedeemScript (pubKeys: any) {
-        const redeem = bitcoin.payments.p2ms(
+    getRedeemScript (pubKeys: Array<Buffer>): Payment {
+        const redeem = bitcoinjs.payments.p2ms(
             {
                 m: 2,
                 pubkeys: pubKeys,
                 network: this.NETWORK
             }
         );
+        //console.log(redeem)
         return redeem;
     }
 
-    keyPairFromWIF (WIF: any) {
-        return bitcoin.ECPair.fromWIF(WIF, this.NETWORK)
+    keyPairFromWIF (WIF: string): ECPairInterface {
+        return bitcoinjs.ECPair.fromWIF(WIF, this.NETWORK);
     }
 
-    keyPairsFromWIFs (WIFs: any) {
-        return WIFs.map((wif: any) => this.keyPairFromWIF(wif))
+    keyPairsFromWIFs (WIFs: Array<string>): Array<ECPairInterface> {
+        return WIFs.map((wif: any) => this.keyPairFromWIF(wif));
     }
 
-    generateKeyPair () {
-        return bitcoin.ECPair.makeRandom({ network: this.NETWORK });
+    generateKeyPair (): ECPairInterface {
+        return bitcoinjs.ECPair.makeRandom({ network: this.NETWORK });
     }
 
-    generateKeyPairs () {
-        const keyPairs = [this.generateKeyPair(), this.generateKeyPair(), this.generateKeyPair()]
-        return keyPairs
+    generateKeyPairs (): Array<ECPairInterface> | false {
+        try {
+            const keyPairs = [this.generateKeyPair(), this.generateKeyPair(), this.generateKeyPair()]
+            return keyPairs;
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
     }
 
-    bufferFromHex (hex: any) {
+    bufferFromHex (hex: any): Buffer {
         return Buffer.from(hex, 'hex');
     }
 
-    pubKeyFromKeyPair (keyPair: any) {
+    pubKeyFromKeyPair (keyPair: ECPairInterface) {
         return keyPair.publicKey
     }
 
-    pubKeysFromKeyPairs (keyPairs: any) {
+    pubKeysFromKeyPairs (keyPairs: Array<ECPairInterface>) {
         return keyPairs.map((keyPair: any) => this.pubKeyFromKeyPair(keyPair))
     }
 
 }
-
-//module.exports.Msint = Msint;

@@ -9,18 +9,40 @@ export default class NodeInt {
 
     async getHash (address: string) { // hash = prev tx id
         const response = await axios.get(`${this.API}/addrs/${address}`);
+        //console.log(response.data)
         return response.data.txrefs[0].tx_hash;
     }
 
-    async getScriptPubKey (address: string) {
-        const hash = await this.getHash(address);
+    async getScriptPubKey (address: string, hash: string) {
         const response = await axios.get(`${this.API}/txs/${hash}?includeHex=true`);
-        return response.data.outputs[0].script;
+        const output = response.data.outputs.filter ((output: any) =>
+            output.addresses[0] == address
+        )
+        return output[0].script;
     }
 
     async getBalance (address: string) {
         const response = await axios.get(`${this.API}/addrs/${address}`);
         return response.data.balance;
+    }
+
+    async getInputBalance (address: string, hash: string) {
+        const response = await axios.get(`${this.API}/txs/${hash}?includeHex=true`);
+        const output = response.data.outputs.filter ((output: any) =>
+            output.addresses[0] == address
+        )
+        return output[0].value;
+    }
+
+    async getInputData (address: string, hash: string) {
+        const response = await axios.get(`${this.API}/txs/${hash}?includeHex=true`);
+        const output = response.data.outputs.filter ((output: any) =>
+            output.addresses[0] == address
+        )
+        return {
+            value: output[0].value,
+            script: output[0].script
+        }
     }
 
     async getTxInfo (tx: string) {
@@ -45,6 +67,21 @@ export default class NodeInt {
                }
             }
         )
+    }
+
+    async getAllInputsHashes (address: string) {
+        const response = await axios.get(`${this.API}/addrs/${address}`);
+        //console.log(response.data)
+        // console.log(response.data.txrefs)
+        const txrefs = response.data.txrefs.filter ((txref: any) => 
+            txref.tx_input_n == -1 && txref.tx_output_n == 1
+        )
+        //console.log(txrefs)
+        const hashes = txrefs.map((txref: any) => 
+            txref.tx_hash
+        )
+        return hashes;
+
     }
 
 }

@@ -17,20 +17,38 @@ class NodeInt {
     getHash(address) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield axios.get(`${this.API}/addrs/${address}`);
+            //console.log(response.data)
             return response.data.txrefs[0].tx_hash;
         });
     }
-    getScriptPubKey(address) {
+    getScriptPubKey(address, hash) {
         return __awaiter(this, void 0, void 0, function* () {
-            const hash = yield this.getHash(address);
             const response = yield axios.get(`${this.API}/txs/${hash}?includeHex=true`);
-            return response.data.outputs[0].script;
+            const output = response.data.outputs.filter((output) => output.addresses[0] == address);
+            return output[0].script;
         });
     }
     getBalance(address) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield axios.get(`${this.API}/addrs/${address}`);
             return response.data.balance;
+        });
+    }
+    getInputBalance(address, hash) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield axios.get(`${this.API}/txs/${hash}?includeHex=true`);
+            const output = response.data.outputs.filter((output) => output.addresses[0] == address);
+            return output[0].value;
+        });
+    }
+    getInputData(address, hash) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield axios.get(`${this.API}/txs/${hash}?includeHex=true`);
+            const output = response.data.outputs.filter((output) => output.addresses[0] == address);
+            return {
+                value: output[0].value,
+                script: output[0].script
+            };
         });
     }
     getTxInfo(tx) {
@@ -54,6 +72,17 @@ class NodeInt {
                     value: output.value
                 };
             });
+        });
+    }
+    getAllInputsHashes(address) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield axios.get(`${this.API}/addrs/${address}`);
+            //console.log(response.data)
+            // console.log(response.data.txrefs)
+            const txrefs = response.data.txrefs.filter((txref) => txref.tx_input_n == -1 && txref.tx_output_n == 1);
+            //console.log(txrefs)
+            const hashes = txrefs.map((txref) => txref.tx_hash);
+            return hashes;
         });
     }
 }

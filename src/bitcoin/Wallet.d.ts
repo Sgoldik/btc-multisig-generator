@@ -5,11 +5,13 @@ export default class Wallet extends Msint {
     keyPairs: any;
     pubKeys: any;
     constructor(network: Network, keyPairs: any);
-    create(): any;
-    getInfo(): {
-        address: any;
-        redeem: any;
-        WIFs: any;
-        pubKeys: any;
-    };
+    create(): string;
+    getInfo(): WalletInfo | false;
 }
+interface WalletInfo {
+    address: string;
+    redeem: string;
+    WIFs: Array<string>;
+    pubKeys: Array<string>;
+}
+export {};

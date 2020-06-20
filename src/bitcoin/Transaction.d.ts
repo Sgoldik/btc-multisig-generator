@@ -1,16 +1,16 @@
+import * as bitcoinjs from 'bitcoinjs-lib';
 import { Msint } from './Msint';
 import { Network } from './networks';
 export default class Transaction extends Msint {
     network: Network;
-    NETSYDEFEE: number;
-    psbt: any;
+    psbt: bitcoinjs.Psbt;
     pubKeys: any;
-    constructor(network: Network);
+    constructor(network: Network, pubKeys: any);
     create(): void;
-    addInput(prevHash: any, script: any, fullAmount: any): void;
-    addOutput(recipient: any, balance: any, fee: any): void;
-    sign(key: any): void;
+    addInput(prevHash: string, script: string, fullAmount: number): void;
+    addOutput(recipient: string, balance: any, fee: any): void;
+    sign(key: string, index: number): void;
     finalize(): void;
-    extract(): any;
-    broadcast(): void;
+    extract(): string;
+    broadcast(): string;
 }

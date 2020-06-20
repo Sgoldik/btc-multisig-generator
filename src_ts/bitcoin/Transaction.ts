@@ -1,51 +1,52 @@
-const bitcoin = require('bitcoinjs-lib');
+import * as bitcoinjs from 'bitcoinjs-lib';
 import { Msint } from './Msint';
 import { Network } from './networks';
 
 export default class Transaction extends Msint {
     network: Network
-    NETSYDEFEE = 10000;
-    psbt: any
+    psbt: bitcoinjs.Psbt
     pubKeys: any // test this
     
-    constructor (network: Network) {
+    constructor (network: Network, pubKeys: any) {
         super(network)
-        this.psbt
+        this.pubKeys = pubKeys
+        this.network = network
     }
-
+    
     create () {
-        this.psbt = new bitcoin.Psbt({ network: this.NETWORK })
+        this.psbt = new bitcoinjs.Psbt({ network: this.NETWORK });
+        //return this.psbt;
     }
 
-    addInput (prevHash: any, script: any, fullAmount: any) {
-        const inputData = {
-            hash: prevHash, // prev tx id
-            index: 0,
-            witnessUtxo: {
-                script: Buffer.from(
-                    script, // scriptPubkey 
-                    'hex',
-                ),
-                value: fullAmount,
-            },
-            witnessScript: this.getRedeemScript(this.pubKeys).output, // A Buffer of the witnessScript for P2WSH
+    addInput (prevHash: string, script: string, fullAmount: number) {
+        try {
+            const inputData = {
+                hash: prevHash, // prev tx id
+                index: 1, // TO-DO: add index check // id address in tx
+                witnessUtxo: {
+                    script: Buffer.from(
+                        script, // scriptPubkey 
+                        'hex',
+                    ),
+                    value: fullAmount,
+                },
+                witnessScript: this.getRedeemScript(this.pubKeys).output,
+            }
+            this.psbt.addInput(inputData);
+        } catch (e) {
+            console.log(e)
         }
-        this.psbt.addInput(inputData);
     }
 
-    addOutput (recipient: any, balance: any, fee: any) {
+    addOutput (recipient: string, balance: any, fee: any) {
         this.psbt.addOutput({
             address: recipient,
-            value: balance - fee - this.NETSYDEFEE,
-        })
-        this.psbt.addOutput({
-            address: this.NETSYDE,
-            value: this.NETSYDEFEE,
+            value: balance - fee,
         })
     }
 
-    sign (key: any) {
-        this.psbt.signInput(0, this.keyPairFromWIF(key))
+    sign (key: string, index: number) {
+        this.psbt.signInput(index, this.keyPairFromWIF(key))
     }
 
     finalize () {
@@ -59,7 +60,8 @@ export default class Transaction extends Msint {
 
     broadcast () {
         this.finalize()
-        this.extract()
+        let extract = this.extract()
+        return extract;
         // broadcast tx
     }
     
