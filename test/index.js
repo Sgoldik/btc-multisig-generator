@@ -2,7 +2,7 @@ const { bitcoin, etherium } = require('../src');
 const bitcoinjs = require ('bitcoinjs-lib');
 
 let NETWORK = bitcoin.networks.testnet;
-const FEE = 400;
+const FEE = 200;
 const API = 'https://api.blockcypher.com/v1/btc/test3'
 
 let msint = new bitcoin.Msint(NETWORK);
@@ -25,19 +25,26 @@ let sendingTx = async () => {
     //let hash = await input.getHash(address)
     let hashes = await input.getAllInputsHashes(address);
     console.log(hashes)
-    hashes.forEach(async hash => {
-        let inputData = await input.getInputData(address, hash);
-        console.log(hash, inputData.script, inputData.value)
-        tx.addInput(hash, inputData.script, inputData.value)
-    })
+    for (let i = 0; i < hashes.length; i++) {
+        let inputData = await input.getInputData(address, hashes[i]);
+        let vout = await input.getVout(hashes[i], address)
+        console.log(hashes[i], inputData.script, inputData.value, vout)
+        tx.addInput(hashes[i], inputData.script, inputData.value, vout)
+    }
+    // hashes.forEach(async (hash, index) => {
+    //     let inputData = await input.getInputData(address, hash);
+    //     console.log(hash, inputData.script, inputData.value, index)
+    //     tx.addInput(hash, inputData.script, inputData.value, index)
+    // })
     
     let balance = await input.getBalance(address)
     // Gets hash, script and fullAmount and after ->
     //tx.addInput(hash, script, balance)
 
     // Gets buyer address, amount and after ->
-    const recipient = '2MuiUfitrSqckKDWydFfbA1mDjnaszzEhHL';
+    const recipient = 'tb1q4xuz3g5r9u8fwlyj9m0hnfkady6fxy9sgg6u5z7ve8uv08tre55sfalmfp';
     // const transferAmount = 10000
+    console.log(balance)
     tx.addOutput(recipient, balance, FEE)
 
     // waiting for confirmation and after sign tx (1/3)

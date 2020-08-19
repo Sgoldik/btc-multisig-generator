@@ -12,5 +12,6 @@ export default class NodeInt {
     getTxInfo(tx: string): Promise<any>;
     getTxAddresses(tx: string): Promise<Array<string>>;
     getTxOutputsWithBalance(tx: string): Promise<any>;
+    getVout(tx: string, address: string): Promise<number>;
     getAllInputsHashes(address: string): Promise<any>;
 }

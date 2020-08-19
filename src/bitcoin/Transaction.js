@@ -31,7 +31,7 @@ class Transaction extends Msint_1.Msint {
         this.psbt = new bitcoinjs.Psbt({ network: this.NETWORK });
         //return this.psbt;
     }
-    addInput(prevHash, script, fullAmount) {
+    addInput(prevHash, script, fullAmount, index) {
         try {
             const inputData = {
                 hash: prevHash,

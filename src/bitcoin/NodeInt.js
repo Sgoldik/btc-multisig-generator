@@ -74,13 +74,30 @@ class NodeInt {
             });
         });
     }
+    getVout(tx, address) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield axios.get(`${this.API}/txs/${tx}`);
+                for (let i = 0; i < response.data.outputs.length; i++) {
+                    if (response.data.outputs[i].addresses[0] == address) {
+                        return i;
+                    }
+                }
+            }
+            catch (e) {
+                console.log(e);
+            }
+        });
+    }
     getAllInputsHashes(address) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield axios.get(`${this.API}/addrs/${address}`);
             //console.log(response.data)
             // console.log(response.data.txrefs)
-            const txrefs = response.data.txrefs.filter((txref) => txref.tx_input_n == -1 && txref.tx_output_n == 1);
-            //console.log(txrefs)
+            const txrefs = response.data.txrefs.filter((txref) => 
+            // txref.tx_input_n == -1 && txref.tx_output_n == 1 && txref.spent == false
+            txref.spent == false);
+            console.log(txrefs);
             const hashes = txrefs.map((txref) => txref.tx_hash);
             return hashes;
         });

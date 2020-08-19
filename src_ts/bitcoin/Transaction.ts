@@ -18,7 +18,7 @@ export default class Transaction extends Msint {
         //return this.psbt;
     }
 
-    addInput (prevHash: string, script: string, fullAmount: number) {
+    addInput (prevHash: string, script: string, fullAmount: number, index: number) {
         try {
             const inputData = {
                 hash: prevHash, // prev tx id

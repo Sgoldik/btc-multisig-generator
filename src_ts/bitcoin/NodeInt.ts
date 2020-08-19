@@ -69,17 +69,32 @@ export default class NodeInt {
         )
     }
 
+    async getVout (tx: string, address: string) {
+        try {
+            const response = await axios.get(`${this.API}/txs/${tx}`);
+            for (let i = 0; i < response.data.outputs.length; i++) {
+                if (response.data.outputs[i].addresses[0] == address) {
+                    return i;
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     async getAllInputsHashes (address: string) {
         const response = await axios.get(`${this.API}/addrs/${address}`);
         //console.log(response.data)
         // console.log(response.data.txrefs)
         const txrefs = response.data.txrefs.filter ((txref: any) => 
-            txref.tx_input_n == -1 && txref.tx_output_n == 1
+            // txref.tx_input_n == -1 && txref.tx_output_n == 1 && txref.spent == false
+            txref.spent == false
         )
-        //console.log(txrefs)
+        console.log(txrefs)
         const hashes = txrefs.map((txref: any) => 
             txref.tx_hash
         )
+
         return hashes;
 
     }

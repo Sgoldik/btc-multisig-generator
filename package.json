@@ -1,6 +1,6 @@
 {
   "name": "crypto-interaction",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Easy interaction with cryptocurrency blockchains",
   "homepage": "https://github.com/netsyde/crypto-interaction",
   "repository": {
