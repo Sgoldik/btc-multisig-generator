@@ -26,9 +26,9 @@ Crypto interaction is a module of the crypto2bot that allows you to interact wit
 ### Create multisignature wallet
 ```javascript
 import { bitcoin } from 'crypto-interaction';
-const testnet = new bitcoin.Network().getTestnet()
+const testnet = bitcoin.networks.testnet;
 
-const keyPairs = bitcoin.Msint(testnet).generateKeyPairs();
+const keyPairs = new bitcoin.Msint(testnet).generateKeyPairs();
 const wallet = new bitcoin.Wallet(testnet, keyPairs);
 const address = wallet.create();
 console.log(address)
