@@ -22,7 +22,7 @@ export default class Transaction extends Msint {
         try {
             const inputData = {
                 hash: prevHash, // prev tx id
-                index: 1, // TO-DO: add index check // id address in tx
+                index: index, // TO-DO: add index check // id address in tx
                 witnessUtxo: {
                     script: Buffer.from(
                         script, // scriptPubkey 

@@ -35,7 +35,7 @@ class Transaction extends Msint_1.Msint {
         try {
             const inputData = {
                 hash: prevHash,
-                index: 1,
+                index: index,
                 witnessUtxo: {
                     script: Buffer.from(script, // scriptPubkey 
                     'hex'),
